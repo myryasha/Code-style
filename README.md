@@ -1,202 +1,184 @@
-# Principles of writing consistent, idiomatic CSS
+# Принципы написания однородного CSS-кода
 
-The following document outlines a reasonable style guide for CSS development.
-These guidelines strongly encourage the use of existing, common, sensible
-patterns. They should be adapted as needed to create your own style guide.
+Этот документ представляет собой общие рекомендации по стилю написания CSS.  Он
+не был задуман как набор жёстких правил, и мне бы не хотелось навязывать
+собственные предпочтения другим людям. Тем не менее, данное руководство
+призывает к использованию общепринятых и устоявшихся подходов к написанию
+кода.
 
-This is a living document and new ideas are always welcome. Please
-contribute.
+Этот документ не закончен, и новые идеи всегда приветствуются. Пожалуйста,
+внесите свой вклад.
+
+[«Принципы написания однородного CSS» на английском языке
+(Original)](https://github.com/necolas/idiomatic-css)
 
 
-## Table of contents
+## Содержание
 
-1. [General principles](#general-principles)
-2. [Whitespace](#whitespace)
-3. [Comments](#comments)
-4. [Format](#format)
-5. [Practical example](#example)
+1. [Общие принципы](#general-principles)
+2. [Отступы](#whitespace)
+3. [Комментарии](#comments)
+4. [Форматирование](#format)
+5. [Именование](#naming)
+6. [Практический пример](#example)
+7. [Организация кода](#organization)
+8. [Сборка и развёртывание](#build-and-deployment)
 
-[Acknowledgements](#acknowledgements)
-
-[License](#license)
+[Благодарности](#acknowledgements)
 
 
 <a name="general-principles"></a>
-## 1. General principles
+## 1. Общие принципы
 
-> "Part of being a good steward to a successful project is realizing that
-> writing code for yourself is a Bad Idea™. If thousands of people are using
-> your code, then write your code for maximum clarity, not your personal
-> preference of how to get clever within the spec." - Idan Gazit
+> «Вы сослужите проекту хорошую службу, если будете осознавать, что написание
+> кода только для себя — Плохая Идея™. Если тысячи людей используют ваш код, то
+> пишите его максимально ясным и не делайте что-то только потому, что
+> спецификация языка допускает это». — Idan Gazit
 
-* Don't try to prematurely optimize your code; keep it readable and
-  understandable.
-* All code in any code-base should look like a single person typed it, even
-  when many people are contributing to it.
-* Strictly enforce the agreed-upon style.
-* If in doubt when deciding upon a style use existing, common patterns.
+* Весь код в любом проекте должен выглядеть так, будто его создал один человек,
+  вне зависимости от того, сколько людей на самом деле принимали участие.
+* Строго соблюдайте соглашения.
+* В сомнительных случаях используйте общепринятый подход.
 
 
 <a name="whitespace"></a>
-## 2. Whitespace
+## 2. Отступы
 
-Only one style should exist across the entire source of your code-base. Always
-be consistent in your use of whitespace. Use whitespace to improve
-readability.
+Для всего проекта должен применяться единый стиль отступов. Всегда будьте
+последовательны в использовании отступов и применяйте их для повышения
+читабельности кода.
 
-* _Never_ mix spaces and tabs for indentation.
-* Choose between soft indents (spaces) or real tabs. Stick to your choice
-  without fail. (Preference: spaces)
-* If using spaces, choose the number of characters used per indentation level.
-  (Preference: 4 spaces)
+* _Никогда_ не смешивайте пробелы и табуляцию.
+* Между табуляцией и мягкими отступами (пробелы вместо табуляции) выберите
+  что-то одно. Придерживайтесь своего выбора, не делая исключений.
+(Предпочтение: пробелы)
+* Если вы используете пробелы, определитесь с количеством символов,
+  соответствующим одному уровню отступа. (Предпочтение: 4 пробела)
 
-Tip: configure your editor to "show invisibles" or to automatically remove
-end-of-line whitespace.
-
-Tip: use an [EditorConfig](http://editorconfig.org/) file (or equivalent) to
-help maintain the basic whitespace conventions that have been agreed for your
-code-base.
+Совет: настройте редактор кода так, чтобы он отображал невидимые символы. Это
+позволит избегать случайных пробелов в конце строк или в пустых строках и легче
+отслеживать изменения в коде.
 
 
 <a name="comments"></a>
-## 3. Comments
+## 3. Комментарии
 
-Well commented code is extremely important. Take time to describe components,
-how they work, their limitations, and the way they are constructed. Don't leave
-others in the team guessing as to the purpose of uncommon or non-obvious
-code.
+Хорошо откомментированный код очень важен. Потратьте время на то, чтобы описать
+компоненты, особенности их работы, ограничения и то, как они были созданы.  Не
+заставляйте других членов команды гадать над назначением неочевидного кода.
 
-Comment style should be simple and consistent within a single code base.
+Стиль комментариев должен быть простым и однородным для всего проекта.
 
-* Place comments on a new line above their subject.
-* Keep line-length to a sensible maximum, e.g., 80 columns.
-* Make liberal use of comments to break CSS code into discrete sections.
-* Use "sentence case" comments and consistent text indentation.
+* Помещайте комментарий на строке перед комментируемым фрагментом кода.
+* Избегайте добавления комментариев в конец строки.
+* Установите обоснованную максимальную длину строки, например, 80 символов.
+* Свободно используйте комментарии для оформления разделов внутри CSS-файла.
+* Начинайте предложения с заглавной буквы, в конце ставьте точку, а также
+  используйте однородные отступы.
 
-Tip: configure your editor to provide you with shortcuts to output agreed-upon
-comment patterns.
+Совет: настройте в редакторе кода горячие клавиши для быстрого набора шаблонов
+комментирования.
 
-Example:
+#### Пример для CSS:
 
 ```css
 /* ==========================================================================
-   Section comment block
+   Блок комментариев для раздела
    ========================================================================== */
 
-/* Sub-section comment block
+/* Блок комментариев для подраздела
    ========================================================================== */
 
-/**
- * Short description using Doxygen-style comment format
- *
- * The first sentence of the long description starts here and continues on this
- * line for a while finally concluding here at the end of this paragraph.
- *
- * The long description is ideal for more detailed explanations and
- * documentation. It can include example HTML, URLs, or any other information
- * that is deemed necessary or useful.
- *
- * @tag This is a tag named 'tag'
- *
- * TODO: This is a todo statement that describes an atomic task to be completed
- *   at a later date. It wraps after 80 characters and following lines are
- *   indented by 2 spaces.
+/*
+ * Блок комментариев для группы правил.
+ * Хорошо подходит для подробных пояснений и документации.
  */
 
-/* Basic comment */
+/* Обычный комментарий */
+```
+
+#### Пример для SCSS:
+
+```scss
+// ==========================================================================
+// Блок комментариев для раздела
+// ==========================================================================
+
+// Блок комментариев для подраздела
+// ==========================================================================
+
+//
+// Блок комментариев для группы правил.
+// Хорошо подходит для подробных пояснений и документации.
+//
+
+// Обычный комментарий
 ```
 
 
 <a name="format"></a>
-## 4. Format
+## 4. Форматирование
 
-The chosen code format must ensure that code is: easy to read; easy to clearly
-comment; minimizes the chance of accidentally introducing errors; and results
-in useful diffs and blames.
+Выбранный формат записи кода должен гарантировать, что код легко читается; что
+его легко комментировать; должен минимизировать шанс случайного внесения
+ошибки; и в результате обеспечивать удобство чтения сообщений внутри системы
+управления версиями.
 
-* Use one discrete selector per line in multi-selector rulesets.
-* Include a single space before the opening brace of a ruleset.
-* Include one declaration per line in a declaration block.
-* Use one level of indentation for each declaration.
-* Include a single space after the colon of a declaration.
-* Use lowercase and shorthand hex values, e.g., `#aaa`.
-* Use single or double quotes consistently. Preference is for double quotes,
-  e.g., `content: ""`.
-* Quote attribute values in selectors, e.g., `input[type="checkbox"]`.
-* _Where allowed_, avoid specifying units for zero-values, e.g., `margin: 0`.
-* Include a space after each comma in comma-separated property or function
-  values.
-* Include a semi-colon at the end of the last declaration in a declaration
-  block.
-* Place the closing brace of a ruleset in the same column as the first
-  character of the ruleset.
-* Separate each ruleset by a blank line.
+1. При создании правила для нескольких селекторов помещайте каждый селектор на
+   отдельной строке.
+2. Перед открывающей скобкой ставьте один пробел.
+3. Внутри блока объявлений помещайте каждое объявление на отдельной строке.
+4. Добавляйте один уровень отступов перед каждым объявлением.
+5. Ставьте пробел после двоеточия внутри объявления.
+6. Всегда ставьте точку с запятой после последнего объявления в блоке.
+7. Ставьте закрывающую скобку на одной вертикальной линии с первым символом в
+   селекторе.
+8. Разделяйте правила пустой строкой.
 
 ```css
 .selector-1,
 .selector-2,
-.selector-3[type="text"] {
+.selector-3 {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     display: block;
-    font-family: helvetica, arial, sans-serif;
     color: #333;
     background: #fff;
-    background: linear-gradient(#fff, rgba(0, 0, 0, 0.8));
-}
-
-.selector-a,
-.selector-b {
-    padding: 10px;
 }
 ```
 
-#### Declaration order
+#### Порядок объявлений
 
-If declarations are to be consistently ordered, it should be in accordance with
-a single, simple principle.
-
-Smaller teams may prefer to cluster related properties (e.g. positioning and
-box-model) together.
+Объявления должны быть упорядочены по единому принципу. Я предпочитаю
+объединять их по смыслу и помещать структурно важные свойства (например, те,
+что отвечают за позиционирование и блочную модель) перед свойствами, связанными
+с типографикой, фоном и цветом.
 
 ```css
 .selector {
-    /* Positioning */
-    position: absolute;
-    z-index: 10;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-
-    /* Display & Box Model */
-    display: inline-block;
-    overflow: hidden;
-    box-sizing: border-box;
-    width: 100px;
+    position: relative;
+    display: block;
+    width: 50%;
     height: 100px;
     padding: 10px;
-    border: 10px solid #333;
+    border: 0;
     margin: 10px;
-
-    /* Other */
+    color: #fff
     background: #000;
-    color: #fff;
-    font-family: sans-serif;
-    font-size: 16px;
-    text-align: right;
 }
 ```
 
-Larger teams may prefer the simplicity and ease-of-maintenance that comes with
-alphabetical ordering.
+Упорядочение по алфавиту тоже популярно, но его минус в том, что связанные по
+смыслу свойства оказываются разделены. К примеру, свойства, связанные с
+отступами, могут встречаться как в начале, так и в конце одного и того же
+блока определений.
 
-#### Exceptions and slight deviations
+#### Исключения и небольшие отклонения
 
-Large blocks of single declarations can use a slightly different, single-line
-format. In this case, a space should be included after the opening brace and
-before the closing brace.
+К большим группам правил, состоящих из одного свойства, может применяться
+запись в одну строку. В таком случае следует ставить пробел после открывающей и
+перед закрывающей скобками.
 
 ```css
 .selector-1 { width: 10%; }
@@ -204,40 +186,51 @@ before the closing brace.
 .selector-3 { width: 30%; }
 ```
 
-Long, comma-separated property values - such as collections of gradients or
-shadows - can be arranged across multiple lines in an effort to improve
-readability and produce more useful diffs. There are various formats that could
-be used; one example is shown below.
+Длинные значения свойств, разделяемые запятыми — как, например, набор
+градиентов или теней — могут быть помещены на отдельной строке каждое, чтобы
+повысить читабельность кода и сообщений в системе управления версиями. Формат
+записи может слегка различаться, один из вариантов приведён ниже.
 
 ```css
 .selector {
-    background-image:
-        linear-gradient(#fff, #ccc),
-        linear-gradient(#f3c, #4ec);
     box-shadow:
         1px 1px 1px #000,
         2px 2px 1px 1px #ccc inset;
+    background-image:
+        linear-gradient(#fff, #ccc),
+        linear-gradient(#f3c, #4ec);
 }
 ```
 
-### Preprocessors: additional format considerations
+#### Прочее
 
-Different CSS preprocessors have different features, functionality, and syntax.
-Your conventions should be extended to accommodate the particularities of any
-preprocessor in use. The following guidelines are in reference to Sass.
+* Пишите шестнадцатеричные значения в нижнем регистре, например, `#aaa`.
+* Последовательно используйте либо одинарные, либо двойные кавычки. Я
+  предпочитаю двойные, к примеру, `content: ""`.
+* Всегда берите в кавычки значения атрибутов внутри селектора, например,
+  `input[type="checkbox"]`.
+* _Везде, где возможно_, опускайте единицы измерения при нулевом значении,
+  например, `margin: 0`.
 
-* Limit nesting to 1 level deep. Reassess any nesting more than 2 levels deep.
-  This prevents overly-specific CSS selectors.
-* Avoid large numbers of nested rules. Break them up when readability starts to
-  be affected. Preference to avoid nesting that spreads over more than 20
-  lines.
-* Always place `@extend` statements on the first lines of a declaration
-  block.
-* Where possible, group `@include` statements at the top of a declaration
-  block, after any `@extend` statements.
-* Consider prefixing custom functions with `x-` or another namespace. This
-  helps to avoid any potential to confuse your function with a native CSS
-  function, or to clash with functions from libraries.
+### Препроцессоры: дополнительные соглашения
+
+Разные препроцессоры CSS имеют разный набор возможностей и различный
+синтаксис. Ваши соглашения должны быть дополнены, чтобы отражать особенности
+использования конкретного препроцессора. Следующий набор правил относится
+к Sass.
+
+* Ограничивайте вложенность одним уровнем. Пересмотрите все правила, в которых
+  больше двух уровней вложенности. Это позволит избегать чрезмерной
+  специфичности правил.
+* Избегайте большого числа вложенных правил. Оформляйте их отдельно,
+  когда их становится трудно читать. Предпочтительно ограничивать длину
+  вложенных правил 20 строками.
+* Всегда помещайте оператор `@extend` в первой строке блока объявлений.
+* По возможности группируйте операторы `@include` в начале блока объявлений,
+  сразу после `@extend`.
+* Подумайте над добавлением префикса вида `x-` перед своими функциями. Это
+  позволит избежать возможной путаницы между вашими функциями и стандартными
+  функциями CSS, а также функциями из сторонних библиотек.
 
 ```scss
 .selector-1 {
@@ -245,81 +238,94 @@ preprocessor in use. The following guidelines are in reference to Sass.
     @include clearfix();
     @include box-sizing(border-box);
     width: x-grid-unit(1);
-    // other declarations
+    // прочие объявления
+}
+```
+
+
+<a name="naming"></a>
+## 5. Именование
+
+Вы не компилятор и не компрессор кода, поэтому ведите себя соответственно.
+
+Используйте понятные и осмысленные имена для классов в HTML. Выберите ясный и
+последовательный шаблон именования, который будет удобен как для HTML, так и
+для CSS.
+
+```css
+/* Пример кода с плохими именами */
+
+.s-scr {
+    overflow: auto;
+}
+
+.cb {
+    background: #000;
+}
+
+/* Пример лучшего подхода к именованию */
+
+.is-scrollable {
+    overflow: auto;
+}
+
+.column-body {
+    background: #000;
 }
 ```
 
 
 <a name="example"></a>
-## 5. Practical example
+## 6. Практический пример
 
-An example of various conventions.
+Пример использования нескольких соглашений.
 
 ```css
 /* ==========================================================================
-   Grid layout
+   Макет сетки
    ========================================================================== */
 
-/**
- * Column layout with horizontal scroll.
- *
- * This creates a single row of full-height, non-wrapping columns that can
- * be browsed horizontally within their parent.
- *
- * Example HTML:
+/*
+ * HTML для примера:
  *
  * <div class="grid">
- *     <div class="cell cell-3"></div>
- *     <div class="cell cell-3"></div>
- *     <div class="cell cell-3"></div>
+ *     <div class="cell cell-5"></div>
+ *     <div class="cell cell-5"></div>
  * </div>
  */
 
-/**
- * Grid container
- *
- * Must only contain `.cell` children.
- *
- * 1. Remove inter-cell whitespace
- * 2. Prevent inline-block cells wrapping
- */
-
 .grid {
+    overflow: visible;
     height: 100%;
-    font-size: 0; /* 1 */
-    white-space: nowrap; /* 2 */
+    /* Предотвращаем перенос строчных блоков на новую строку */
+    white-space: nowrap;
+    /* Убираем пробелы между ячейками сетки */
+    font-size: 0;
 }
-
-/**
- * Grid cells
- *
- * No explicit width by default. Extend with `.cell-n` classes.
- *
- * 1. Set the inter-cell spacing
- * 2. Reset white-space inherited from `.grid`
- * 3. Reset font-size inherited from `.grid`
- */
 
 .cell {
-    position: relative;
-    display: inline-block;
-    overflow: hidden;
     box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+    width: 20%;
     height: 100%;
-    padding: 0 10px; /* 1 */
+    /* Задаём отступы внутри ячеек */
+    padding: 0 10px;
     border: 2px solid #333;
     vertical-align: top;
-    white-space: normal; /* 2 */
-    font-size: 16px; /* 3 */
+    /* Восстанавливаем поведение по умолчанию */
+    white-space: normal;
+    /* Восстанавливаем размер шрифта */
+    font-size: 16px;
 }
 
-/* Cell states */
+/* Состояния ячеек */
 
 .cell.is-animating {
     background-color: #fffdec;
 }
 
-/* Cell dimensions
+/* Размеры ячеек
    ========================================================================== */
 
 .cell-1 { width: 10%; }
@@ -328,7 +334,7 @@ An example of various conventions.
 .cell-4 { width: 40%; }
 .cell-5 { width: 50%; }
 
-/* Cell modifiers
+/* Модификаторы для ячеек
    ========================================================================== */
 
 .cell--detail,
@@ -338,43 +344,31 @@ An example of various conventions.
 ```
 
 
-## Translations
+<a name="organization"></a>
+## 7. Организация кода
 
-* [Bahasa Indonesia](https://github.com/necolas/idiomatic-css/tree/master/translations/id-ID)
-* [Bulgarian](https://github.com/vestimir/idiomatic-css)
-* [Česky](https://github.com/necolas/idiomatic-css/tree/master/translations/cs-CZ)
-* [Dansk](https://github.com/necolas/idiomatic-css/tree/master/translations/da-DK)
-* [Deutsch](https://github.com/necolas/idiomatic-css/tree/master/translations/de-DE)
-* [Español](https://github.com/necolas/idiomatic-css/tree/master/translations/es-ES)
-* [Français](https://github.com/necolas/idiomatic-css/tree/master/translations/fr-FR)
-* [Italiano](https://github.com/necolas/idiomatic-css/tree/master/translations/it-IT)
-* [日本語](https://github.com/necolas/idiomatic-css/tree/master/translations/ja-JP)
-* [한국어](https://github.com/necolas/idiomatic-css/tree/master/translations/ko-KR)
-* [Nederlands](https://github.com/necolas/idiomatic-css/tree/master/translations/nl-NL)
-* [Polski](https://github.com/necolas/idiomatic-css/tree/master/translations/pl-PL)
-* [Português (Brasil)](https://github.com/necolas/idiomatic-css/tree/master/translations/pt-BR)
-* [Русский](https://github.com/necolas/idiomatic-css/tree/master/translations/ru-RU)
-* [Srpski](https://github.com/necolas/idiomatic-css/tree/master/translations/sr-SR)
-* [Türkçe](https://github.com/necolas/idiomatic-css/tree/master/translations/tr-TR)
-* [正體中文](https://github.com/necolas/idiomatic-css/tree/master/translations/zh-TW)
-* [简体中文](https://github.com/necolas/idiomatic-css/tree/master/translations/zh-CN)
+Организация кода — важная часть любого проекта на CSS и ключевой элемент в
+большом проекте.
+
+* Логически отделяйте различные части кода.
+* Используйте отдельные файлы (объединяемые на этапе сборки), чтобы разделить
+  код обособленных компонентов.
+* При использовании препроцессора оформляйте часто используемый код в
+  переменные, например, для типографики, цветов и т.д.
+
+
+<a name="build-and-deployment"></a>
+## 8. Сборка и развёртывание
+
+В любом проекте по возможности должны использоваться средства для проверки,
+тестирования, сжатия и управления версиями кода при подготовке к развёртыванию.
+Хороший инструмент для этих задач —
+[grunt](https://github.com/cowboy/grunt), написанный Ben Alman.
 
 
 <a name="acknowledgements"></a>
-## Acknowledgements
+## Благодарности
 
-Thanks to everyone who has provided translations and to all those who
-contributed to [idiomatic.js](https://github.com/rwldrn/idiomatic.js). It was a
-source of inspiration, quotations, and guidelines.
-
-
-<a name="license"></a>
-## License
-
-_Principles of writing consistent, idiomatic CSS_ by Nicolas Gallagher is
-licensed under the [Creative Commons Attribution 3.0 Unported
-License](http://creativecommons.org/licenses/by/3.0/). This applies to all
-documents and translations in this repository.
-
-Based on a work at
-[github.com/necolas/idiomatic-css](https://github.com/necolas/idiomatic-css).
+Спасибо всем, кто внёс вклад в проект
+[idiomatic.js](https://github.com/rwldrn/idiomatic.js). Это мой источник
+вдохновения, цитат и общих рекомендаций.
